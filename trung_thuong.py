@@ -1,13 +1,16 @@
 for t in range(int(input())):
     n = int(input())
-    a = []
+    m = {}
     for i in range(n):
-        a.append(int(input()))
-    a.sort()
-    maxx, res = a.count(a[0]), a[0]
-    for i in range(len(a)):
-        if a.count(a[i]) > maxx:
-            maxx = a.count(a[i])
-            res = a[i]
-    print(res)
-    
+        x = int(input())
+        if x in m: 
+            m[x] += 1
+        else: m[x] = 1
+    s = 0
+    for i in m:
+        if m[i] > s:
+            s = m[i]
+            p = i
+        elif m[i] == s:
+            p = min(p,i) 
+    print(p)

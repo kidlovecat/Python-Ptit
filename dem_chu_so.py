@@ -1,14 +1,38 @@
-def Update(dct,n):
-    n = str(n)
-    for i in range(len(n)):
-        dct[n[i]] += 1
-    return dct    
-for t in range(int(input())):
-    dct = {'0':0,'1':0,'2':0,'3':0,'4':0,'5':0,'6':0,'7':0,'8':0,'9':0}
-    a,b = [int(i) for i in input().split()]
-    for i in range(a,b+1,1):
-        dct = Update(dct,i)
-    for i in dct.values():
-        print(i,end=' ')
-    print()
+tg = [0] * 11
+def Load(n, a):
+    if n == 0:
+        return
+    s = str(n)
+    l = len(s)
+    for i in range(10):
+        a[i] += tg[l - 1]
+    for i in range(l - 1):
+        a[0] -= pow(10, i)
+    for i in range(l):
+        j = 0
+        p = 0
+        if i == 0:
+            p = 1
+            j = 1
+            a[0] += tg[l - 1 - i] * (ord(s[i]) - 48 - p)
+        sum = tg[l - 1 - i]  * (ord(s[i]) - 48 - p)
+        while j < ord(s[i]) - 48:
+            a[j] += pow(10, l - i - 1) + sum
+            j += 1
+		
+        a[j] += n % (pow(10, l - i - 1)) + sum + 1
+        for k in range (j + 1, 10):
+            a[k] += sum
+            
+for i in range(10):
+    tg[i] = int(i * pow(10, i - 1))
     
+for t in range(int(input())):
+    n, m = map(int, input().split())
+    aa = [0] * 20
+    bb = [0] * 20
+    Load(n - 1, aa)
+    Load(m, bb)
+    for i in range (10):
+        print(bb[i] - aa[i], end = '  ')
+    print()

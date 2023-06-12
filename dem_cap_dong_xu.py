@@ -1,33 +1,14 @@
-def acb(k, n):
-    a = b = d = 1
-    for i in range(1, k + 1) :
-        a *= i
-    for i in range(1, n + 1) :
-        b *= i
-    for i in range(1, (n - k) + 1) :
-        d *= i
-    result = b  / (a * d) 
-    return result
-
-n = int(input())
-arr = []
+import math
+n=int(input())
+hang=[0]*n
+cot=[0]*n
 for i in range(n):
-    arr.append(input())
-cnt = 0
-
-for i in range(n):
-    tmp = 0
-    for j in range(n):
-        if(arr[i][j] == 'C'):
-            tmp += 1
-    if(tmp > 1): cnt += acb(2,tmp)
-print(cnt)
-for i in range(n):
-    tmp = 0
-    for j in range(n):
-        if(arr[j][i] == 'C'):
-            tmp += 1
-    if(tmp > 1):cnt += acb(2,tmp) 
-print(int(cnt)) 
-
-    
+    s=input()
+    for k in range(len(s)):
+        if s[k]=='C':
+            hang[i]+=1
+            cot[k]+=1
+sum=0
+for i in hang+cot:
+    if i>1: sum+=math.comb(i,2)
+print(sum)
